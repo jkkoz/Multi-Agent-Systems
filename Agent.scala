@@ -22,7 +22,7 @@ class Agent( val matrix: Array[Array[Int]] = Array.ofDim[Int](2,2),
 
 
   //Revise the value of Q(c) or Q(d) after a game.
-  def reviseQ(v : Int, currentQ : Double) : Unit =
+  def reviseQ(v : Int) : Unit =
   {
     selectedAction match {
       case c => currentC = alpha*v + (1 - alpha)* currentC
