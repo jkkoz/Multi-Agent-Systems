@@ -12,7 +12,5 @@ object game {
 
     val agent1 = new Agent(payoffMatrix1)
     val agent2 = new Agent(payoffMatrix2)
-
-    println("Game started")
   }
 }

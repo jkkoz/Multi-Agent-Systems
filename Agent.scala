@@ -1,11 +1,46 @@
-class Agent( val matrix: Array[Array[Int]] = Array.ofDim[Int](2,2))
+import scala.util.Random
+
+class Agent( val matrix: Array[Array[Int]] = Array.ofDim[Int](2,2),
+             val alpha: Double = 0.05,
+             val epsilon: Double = 0.05)
 {
   var selectedAction: Action = c
-  var current: Int = 0
+  var currentC: Double = 1
+  var currentD: Double = 1
+
   //History of local actions (optional); ArrayList<Character> ?
   //History of actions other agents took in past. (if necessary)
   //And so many others .....
-  def getUtility(x : Action) : Int = 0//x is the action of adversary agents. Returns the payoff values of joint action of local and adversary agent’s action.
-  def reviseQ(q : Int) : Double = 0//Revise the value of Q(c) or Q(d) after a game.
-  def decideNextAction() : Action = c//Decide next action based on Q values and ε-greedy strategy.
+
+  //x is the action of adversary agents. Returns the payoff values of joint action of local and adversary agent’s action.
+  def getUtility(adversaryAction : Action) : Int =
+  {
+    val row = if (selectedAction == c) 0 else 1
+    val col = if (adversaryAction == c) 0 else 1
+    matrix(row)(col)
+  }
+
+
+  //Revise the value of Q(c) or Q(d) after a game.
+  def reviseQ(v : Int, currentQ : Double) : Unit =
+  {
+    selectedAction match {
+      case c => currentC = alpha*v + (1 - alpha)* currentC
+      case d => currentD = alpha*v + (1 - alpha)* currentD
+    }
+  }
+
+  //Decide next action based on Q values and ε-greedy strategy.
+  def decideNextAction() : Action =
+  {
+    if (Random.nextDouble() < epsilon)
+    {
+      if (Random.nextBoolean()) c else d
+    }
+    else
+    {
+      if (currentC > currentD) c else d
+    }
+  }
+
 }
