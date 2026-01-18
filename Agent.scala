@@ -4,13 +4,9 @@ class Agent( val matrix: Array[Array[Int]] = Array.ofDim[Int](2,2),
              val alpha: Double = 0.05,
              val epsilon: Double = 0.05)
 {
-  var selectedAction: Action = c
+  var selectedAction: Action = d
   var currentC: Double = 1
   var currentD: Double = 1
-
-  //History of local actions (optional); ArrayList<Character> ?
-  //History of actions other agents took in past. (if necessary)
-  //And so many others .....
 
   //x is the action of adversary agents. Returns the payoff values of joint action of local and adversary agent’s action.
   def getUtility(adversaryAction : Action) : Int =
@@ -39,7 +35,9 @@ class Agent( val matrix: Array[Array[Int]] = Array.ofDim[Int](2,2),
     }
     else
     {
-      if (currentC > currentD) c else d
+      if (currentC > currentD) c
+      else if (currentD > currentC) d
+      else if (Random.nextBoolean()) c else d
     }
   }
 
