@@ -25,11 +25,9 @@ object game {
         var jointCC: Int = 0
 
         val agent1 = new Agent(payoffMatrix1)
-        val agent2 = new Agent(payoffMatrix1)
+        val agent2 = new Agent(payoffMatrix2)
 
         for (i <- 1 to nGames) {
-//          println(s"Agent 1 chose: ${agent1.selectedAction}     Agent 2 chose: ${agent2.selectedAction}")
-
           (agent1.selectedAction, agent2.selectedAction) match {
             case (`c`, `d`) => jointCD += 1
             case (`d`, `c`) => jointDC += 1
