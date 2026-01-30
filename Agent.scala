@@ -4,7 +4,7 @@ class Agent( val matrix: Array[Array[Int]] = Array.ofDim[Int](2,2),
              val alpha: Double = 0.05,
              val epsilon: Double = 0.05)
 {
-  var selectedAction: Action = if((matrix(0).sum.toDouble/2)>(matrix(1).sum.toDouble/2)) c else d
+  var selectedAction: Action = if (Random.nextBoolean()) c else d
   var currentC: Double = 1
   var currentD: Double = 1
 
